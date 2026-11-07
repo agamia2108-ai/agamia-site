@@ -1,0 +1,38 @@
+name: Deploy landing pages
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['README.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if the Apps Script URL was not set
+        run: |
+          if grep -q PASTE_WEB_APP_URL_HERE config.js; then
+            echo "::error::config.js still has the placeholder endpoint"; exit 1
+          fi
+      - name: Collect public files
+        run: mkdir _site && cp *.html config.js _site/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
