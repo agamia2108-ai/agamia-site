@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>מדיניות פרטיות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600&family=Secular+One&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#1B2A41;--sky:#DDEFF6;--muted:#52606F}
 *{box-sizing:border-box}
@@ -17,10 +20,14 @@ ul{padding-inline-start:1.3rem;margin:.3rem 0}
 .upd{color:var(--muted);font-size:.9rem}
 a{color:var(--ink)}
 a:focus-visible{outline:3px solid #E8AE12;outline-offset:2px}
+.back{display:inline-block;font-weight:600;padding:.5rem 0;margin:0 0 .75rem}
+.back-end{margin:1rem 0 0}
 </style>
 </head>
 <body>
-<main><article>
+<main>
+<a class="back" href="tv.html">→ חזרה לטופס</a>
+<article>
 <h1>מדיניות פרטיות</h1>
 <p class="upd">עודכן לאחרונה: נובמבר 2026</p>
 
@@ -57,6 +64,16 @@ a:focus-visible{outline:3px solid #E8AE12;outline-offset:2px}
 <h2>הזכויות שלך</h2>
 <p>אפשר לבקש לעיין במידע שנשמר עליך, לתקן אותו, למחוק אותו או להפסיק לקבל פניות. שלח הודעה לכתובת המייל שלמעלה, והבקשה תטופל מיד.</p>
 <p>מסירת הפרטים אינה חובה על פי דין ותלויה ברצונך. בלעדיהם לא נוכל ליצור איתך קשר.</p>
-</article></main>
+</article>
+<a class="back back-end" href="tv.html">→ חזרה לטופס</a>
+</main>
+<script>
+// Back to the form: browser history if there is any; otherwise (opened in a new tab) go to tv.html.
+document.querySelectorAll('.back').forEach(function(a){
+  a.addEventListener('click',function(ev){
+    if(history.length>1){ev.preventDefault();history.back()}
+  });
+});
+</script>
 </body>
 </html>
